@@ -1,0 +1,5 @@
+Strategy,Total Return (%),Volatility (%),Sharpe Ratio,Max Drawdown (%)
+Buy & Hold,127.27,53.02,2.0,-26.18
+LSTM,0.0,0.0,0.0,0.0
+Random Forest,35.79,30.77,1.2,-20.86
+XGBoost,5.44,25.42,0.56,-24.91
