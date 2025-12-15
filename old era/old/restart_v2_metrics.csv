@@ -1,0 +1,4 @@
+Dataset,Win Rate %,Gini,Sharpe,Volatility %,Max DD %,Trades
+Train (Thresh),54.19,0.0227,0.78,47.77,-48.69,668
+Val (Thresh),57.78,0.039,0.63,11.71,-10.19,45
+Val (Forced >0.5),51.28,0.039,-0.43,43.53,-43.06,351

@@ -1,0 +1,221 @@
+import pandas as pd
+import numpy as np
+import os
+import random
+import tensorflow as tf
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import confusion_matrix, accuracy_score, roc_curve, auc
+from sklearn.utils.class_weight import compute_class_weight
+
+# Importy silników
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout, Input, BatchNormalization
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
+from tensorflow.keras.regularizers import l2
+from tensorflow.keras.optimizers import Adam, Adamax
+
+# ==============================================================================
+# 1. KONFIGURACJA (HIPERPARAMETRY)
+# ==============================================================================
+DATA_FILE      = 'bitcoin_2018_feb_data.csv'
+VAL_START_DATE = '2022-01-01'
+OUTPUT_DIR     = 'RAPORT_REAL_SHORT'
+
+HP_SEED        = 42
+HP_EPOCHS      = 100
+HP_BATCH_SIZE  = 16
+HP_LR          = 0.001
+
+HP_LOOKBACK    = 30
+HP_LSTM_1      = 128     # Duży model
+HP_LSTM_2      = 64
+HP_DENSE       = 16
+
+HP_DROPOUT     = 0.2
+HP_L2          = 0.005
+
+# HP_OPTIMIZER = Adam(learning_rate=HP_LR)
+HP_OPTIMIZER = Adamax(learning_rate=HP_LR) # Stabilny
+
+# ==============================================================================
+# 2. INICJALIZACJA
+# ==============================================================================
+os.environ['PYTHONHASHSEED'] = str(HP_SEED)
+random.seed(HP_SEED)
+np.random.seed(HP_SEED)
+tf.random.set_seed(HP_SEED)
+
+if not os.path.exists(OUTPUT_DIR): os.makedirs(OUTPUT_DIR)
+
+# ==============================================================================
+# 3. DANE
+# ==============================================================================
+if not os.path.exists(DATA_FILE): raise FileNotFoundError("Brak pliku!")
+df = pd.read_csv(DATA_FILE, index_col=0, parse_dates=True)
+
+features = ['BTC_Close', 'BTC_Volume', 'Mayer_Ratio', 'RSI']
+target = 'Target'
+
+print(f" > Cechy: {features}")
+
+train_df = df[df.index < VAL_START_DATE].copy()
+val_df   = df[df.index >= VAL_START_DATE].copy()
+
+scaler = MinMaxScaler()
+X_train_raw = scaler.fit_transform(train_df[features])
+X_val_raw   = scaler.transform(val_df[features])
+
+y_train_raw = train_df[target].values
+y_val_raw   = val_df[target].values
+
+def create_dataset(X, y, lookback):
+    Xs, ys = [], []
+    for i in range(len(X) - lookback):
+        Xs.append(X[i:(i + lookback)])
+        ys.append(y[i + lookback])
+    return np.array(Xs), np.array(ys)
+
+X_train, y_train = create_dataset(X_train_raw, y_train_raw, HP_LOOKBACK)
+X_val, y_val     = create_dataset(X_val_raw, y_val_raw, HP_LOOKBACK)
+
+# Wagi klas (żeby model nie ignorował spadków)
+class_weights = compute_class_weight('balanced', classes=np.unique(y_train), y=y_train)
+cw_dict = {0: class_weights[0], 1: class_weights[1]}
+
+# ==============================================================================
+# 4. MODEL (Trenujemy na 0 i 1, bo tak działa Sigmoid)
+# ==============================================================================
+model = Sequential([
+    Input(shape=(HP_LOOKBACK, len(features))),
+    LSTM(HP_LSTM_1, return_sequences=True, kernel_regularizer=l2(HP_L2)),
+    BatchNormalization(),
+    Dropout(HP_DROPOUT),
+    LSTM(HP_LSTM_2, return_sequences=False, kernel_regularizer=l2(HP_L2)),
+    BatchNormalization(),
+    Dropout(HP_DROPOUT),
+    Dense(HP_DENSE, activation='relu', kernel_regularizer=l2(HP_L2)),
+    Dense(1, activation='sigmoid') # Wyjście: 0.0 do 1.0
+])
+
+model.compile(optimizer=HP_OPTIMIZER, loss='binary_crossentropy', metrics=['accuracy'])
+
+# ==============================================================================
+# 5. TRENING
+# ==============================================================================
+print(f"\n--- [TRENING] ---")
+checkpoint = ModelCheckpoint(f"{OUTPUT_DIR}/best_model.keras", monitor='val_loss', save_best_only=True, verbose=0)
+early_stop = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
+reduce_lr  = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=0.000001)
+
+model.fit(
+    X_train, y_train,
+    epochs=HP_EPOCHS,
+    batch_size=HP_BATCH_SIZE,
+    validation_data=(X_val, y_val),
+    callbacks=[early_stop, reduce_lr, checkpoint],
+    class_weight=cw_dict,
+    verbose=1
+)
+
+# ==============================================================================
+# 6. KALIBRACJA
+# ==============================================================================
+print("\n--- [KALIBRACJA] ---")
+train_probs = model.predict(X_train, verbose=0).flatten()
+optimal_threshold = np.median(train_probs)
+print(f" > Próg (Mediana): {optimal_threshold:.4f}")
+
+# ==============================================================================
+# 7. RAPORTOWANIE (TUTAJ WPROWADZAMY LOGIKĘ -1 / +1)
+# ==============================================================================
+def generate_report(X, y_true, prices, name, threshold):
+    print(f"\n>>> RAPORT: {name} <<<")
+    probs = model.predict(X, verbose=0).flatten()
+    
+    # KROK 1: Decyzja surowa (0 lub 1)
+    raw_preds = (probs > threshold).astype(int)
+    
+    # KROK 2: Konwersja na Pozycję Giełdową (-1 lub 1)
+    # Jeśli raw_pred to 1 -> position = 1 (LONG)
+    # Jeśli raw_pred to 0 -> position = -1 (SHORT)
+    positions = np.where(raw_preds == 1, 1, -1)
+    
+    # Statystyki
+    acc = accuracy_score(y_true, raw_preds)
+    cm = confusion_matrix(y_true, raw_preds)
+    
+    long_count = np.sum(positions == 1)
+    short_count = np.sum(positions == -1)
+    
+    # Equity Calculation
+    equity = [100.0]
+    market = [100.0]
+    
+    real_returns = prices.pct_change().shift(-1).dropna()
+    min_len = min(len(positions), len(real_returns))
+    
+    active_positions = positions[:min_len]
+    active_rets = real_returns.values[:min_len]
+    dates = real_returns.index[:min_len]
+    active_prices = prices.values[:min_len]
+    
+    for i in range(min_len):
+        market_ret = active_rets[i]
+        my_pos = active_positions[i] # Tutaj mamy 1 lub -1
+        
+        # MAGICZNY WZÓR NA SHORTOWANIE:
+        # Jeśli my_pos = -1 (Short) i market_ret = -0.05 (Spadek) -> Zysk = -1 * -0.05 = +0.05
+        strategy_ret = my_pos * market_ret
+        
+        equity.append(equity[-1] * (1 + strategy_ret))
+        market.append(market[-1] * (1 + market_ret))
+        
+    final_eq = equity[-1] - 100.0
+    final_mkt = market[-1] - 100.0
+    
+    print(f" > Accuracy: {acc:.2%}")
+    print(f" > Pozycje:  LONG (1)={long_count}, SHORT (-1)={short_count}")
+    print(f" > Zysk:     {final_eq:.2f}% (Rynek: {final_mkt:.2f}%)")
+    
+    # --- WYKRESY ---
+    
+    # 1. Equity
+    plt.figure(figsize=(12, 6))
+    plt.plot(dates, equity[1:], label=f'Strategia Long/Short ({final_eq:.0f}%)', color='blue', linewidth=2)
+    plt.plot(dates, market[1:], label=f'Rynek Buy&Hold ({final_mkt:.0f}%)', color='gray', linestyle='--', alpha=0.7)
+    plt.title(f'{name} - Krzywa Kapitału (Z poprawnym Shortem)')
+    plt.ylabel('Kapitał (%)')
+    plt.legend(); plt.grid(True, alpha=0.3)
+    plt.savefig(f"{OUTPUT_DIR}/{name}_1_Equity.png")
+    plt.close()
+    
+    # 2. Wykres Pozycji (ABYŚ WIDZIAŁ ŻE SHORTUJE)
+    # Ten wykres pokaże schodki: Góra to Long, Dół to Short
+    plt.figure(figsize=(12, 4))
+    plt.step(dates, active_positions, where='post', color='purple', linewidth=1.5)
+    plt.yticks([-1, 1], ['SHORT (-1)', 'LONG (+1)'])
+    plt.title(f'{name} - Mapa Pozycji (Czy model zmienia zdanie?)')
+    plt.grid(True, alpha=0.3)
+    plt.savefig(f"{OUTPUT_DIR}/{name}_6_Positions_Map.png")
+    plt.close()
+    
+    # 3. Matrix
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Reds', # Zmienilem kolor na czerwony dla odmiany
+                xticklabels=['SHORT (-1)', 'LONG (1)'], 
+                yticklabels=['SPADEK RYNKU', 'WZROST RYNKU'])
+    plt.title(f'{name} Macierz Decyzji')
+    plt.ylabel('Co zrobił rynek?')
+    plt.xlabel('Co zrobił model?')
+    plt.savefig(f"{OUTPUT_DIR}/{name}_3_Matrix.png")
+    plt.close()
+
+train_prices = train_df['BTC_Close'].iloc[HP_LOOKBACK:]
+val_prices   = val_df['BTC_Close'].iloc[HP_LOOKBACK:]
+
+generate_report(X_train, y_train, train_prices, "TRENING", optimal_threshold)
+generate_report(X_val, y_val, val_prices, "WALIDACJA", optimal_threshold)
+
+print(f"\n✅ ZAKOŃCZONO. Wyniki w folderze: {OUTPUT_DIR}")
