@@ -1,0 +1,44 @@
+2026-03-04 16:06:31 | INFO     | =================================================================
+2026-03-04 16:06:31 | INFO     |   02_lstm_model.py  —  PIPELINE START
+2026-03-04 16:06:31 | INFO     |   Train:  2016-01-01 → 2022-12-31
+2026-03-04 16:06:31 | INFO     |   Val:    2024-01-01 → 2024-12-31
+2026-03-04 16:06:31 | INFO     |   Test:   2025-01-01 → 2025-11-30
+2026-03-04 16:06:31 | INFO     |   SEQ_LEN=20  BATCH=64  EPOCHS=150
+2026-03-04 16:06:31 | INFO     |   LSTM units: 512 → 256  |  Dropout: 0.25  |  L2: 0.0001
+2026-03-04 16:06:31 | INFO     | =================================================================
+2026-03-04 16:06:31 | INFO     | [STEP 1/8] Loading and splitting dataset ...
+2026-03-04 16:06:31 | INFO     | Loading dataset from 'processed_dataset.csv' ...
+2026-03-04 16:06:31 | INFO     | Full dataset: 4015 rows  [2015-01-03 → 2025-12-30]
+2026-03-04 16:06:31 | INFO     |   Train →  2557 rows  [2016-01-01 → 2022-12-31]
+2026-03-04 16:06:31 | INFO     |   Val   →   366 rows  [2024-01-01 → 2024-12-31]
+2026-03-04 16:06:31 | INFO     |   Test  →   334 rows  [2025-01-01 → 2025-11-30]
+2026-03-04 16:06:31 | INFO     | [STEP 2/8] Scaling features (fit on Train only) ...
+2026-03-04 16:06:31 | INFO     | Feature columns (6): ['is_weekend', 'btc_log_return', 'spy_log_return', 'gold_log_return', 'nvda_log_return', 'dxy_log_return']
+2026-03-04 16:06:31 | INFO     | Scaler fitted on training set. Feature means (rounded): {'is_weekend': 0.2859, 'btc_log_return': 0.0014, 'spy_log_return': 0.0003, 'gold_log_return': 0.0002, 'nvda_log_return': 0.0011, 'dxy_log_return': 0.0}
+2026-03-04 16:06:31 | INFO     | [STEP 3/8] Building windowed tf.data.Datasets (SEQ_LEN=20) ...
+2026-03-04 16:06:31 | INFO     | [STEP 4/8] Building model architecture ...
+2026-03-04 16:06:31 | INFO     | [STEP 4/8] Training LSTM (EarlyStopping active) ...
+2026-03-04 16:07:36 | INFO     | Training complete. Best val_loss = 0.69508 at epoch 13 / 33.
+2026-03-04 16:07:36 | INFO     | [STEP 5/8] Generating predictions on all splits ...
+2026-03-04 16:07:36 | INFO     | [STEP 6/8] Running Variant A (standard 0.5 threshold) ...
+2026-03-04 16:07:36 | INFO     | [STEP 7/8] Running Variant B (3-state confidence filter) ...
+2026-03-04 16:07:36 | INFO     | [STEP 8/8] Generating and saving diagnostic plots ...
+2026-03-04 16:07:37 | INFO     | Training history saved → training_history.png
+2026-03-04 16:07:37 | INFO     | ROC curve saved → roc_curve_test.png
+2026-03-04 16:07:37 | INFO     | Confusion matrix saved → confusion_matrix_val.png
+2026-03-04 16:07:37 | INFO     | Confusion matrix saved → confusion_matrix_test.png
+2026-03-04 16:07:37 | INFO     | Probability distribution saved → prob_distribution.png
+2026-03-04 16:07:37 | INFO     | Equity curve saved → equity_curve_test.png
+2026-03-04 16:07:37 | INFO     |   u=0.50 / l=0.50  →  Coverage=100.0%  WinRate= 52.4%  (347 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.52 / l=0.48  →  Coverage= 62.8%  WinRate= 54.6%  (218 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.54 / l=0.46  →  Coverage= 34.6%  WinRate= 57.5%  (120 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.56 / l=0.44  →  Coverage= 19.6%  WinRate= 51.5%  (68 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.58 / l=0.42  →  Coverage=  6.9%  WinRate= 62.5%  (24 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.60 / l=0.40  →  Coverage=  1.7%  WinRate= 83.3%  (6 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.62 / l=0.38  →  Coverage=  0.6%  WinRate=100.0%  (2 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.64 / l=0.36  →  Coverage=  0.3%  WinRate=100.0%  (1 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.66 / l=0.34  →  Coverage=  0.0%  WinRate=  nan%  (0 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.68 / l=0.32  →  Coverage=  0.0%  WinRate=  nan%  (0 / 347 traded days)
+2026-03-04 16:07:37 | INFO     |   u=0.70 / l=0.30  →  Coverage=  0.0%  WinRate=  nan%  (0 / 347 traded days)
+2026-03-04 16:07:37 | INFO     | Threshold sensitivity saved → threshold_sensitivity.png
+2026-03-04 16:07:37 | INFO     | 02_lstm_model.py  —  PIPELINE COMPLETE
