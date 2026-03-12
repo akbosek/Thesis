@@ -1,0 +1,27 @@
+Act as a Senior Quantitative Developer. I have a working, production-ready script named `02_lstm_model.py` that trains an LSTM to predict Bitcoin daily direction. 
+
+I need to UPDATE this script to generate a much richer set of quantitative finance visualizations for my Bachelor's thesis defense. 
+
+Please rewrite/update `02_lstm_model.py` to keep all existing functionalities (Chronological split, StandardScaler fitted on Train only, TimeseriesGenerator, L2 Regularization, Variant A & Variant B evaluations) but ADD the following advanced visualization functions. All plots must be saved as high-resolution PNGs.
+
+NEW VISUALIZATIONS REQUIRED:
+
+1. Probability Distribution Plot (`prob_distribution.png`):
+- Plot a Seaborn KDE/Histogram of the raw predicted probabilities (0 to 1) for the Test set.
+- Add vertical dashed lines indicating the `LOWER_THRESHOLD` (e.g., 0.45), the 0.50 center, and the `UPPER_THRESHOLD` (e.g., 0.55).
+- Shade the "Noise Zone" (between lower and upper thresholds) in grey to visually justify why the 3-state "Do Nothing" logic is necessary.
+
+2. Simulated Equity Curve / Cumulative Returns (`equity_curve_test.png`):
+- Extract the actual daily log returns of Bitcoin for the Test set period.
+- Calculate cumulative returns for 3 scenarios:
+  a) Buy & Hold (Benchmark)
+  b) Variant A Model (Always in market: Long if P>=0.5, Short if P<0.5)
+  c) Variant B Model (Long if P>UPPER, Short if P<LOWER, Flat/0 return if in Noise Zone).
+- Plot these 3 equity curves on a single line chart over time (using the actual Date index). This is the most critical chart for a finance thesis.
+
+3. Threshold Sensitivity Analysis (`threshold_sensitivity.png`):
+- Create a loop that tests symmetric thresholds from 0.50 up to 0.70 (e.g., [0.50, 0.52, 0.54, ..., 0.65]).
+- For each step, calculate the "Conditional Win Rate" and "Coverage %" on the Validation set.
+- Plot a dual-axis line chart: X-axis is the threshold value. Primary Y-axis (blue) is the Conditional Win Rate. Secondary Y-axis (red) is the Coverage. This visually proves why we selected our specific threshold.
+
+Ensure the new plotting functions are elegantly integrated into the main pipeline, heavily commented, and visually appealing (use gridlines, legends, and clear titles). Output the complete, updated `02_lstm_model.py` script.
