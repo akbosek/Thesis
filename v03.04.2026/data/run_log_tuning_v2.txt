@@ -1,0 +1,304 @@
+2026-03-26 00:19:35 | INFO     | =================================================================
+2026-03-26 00:19:35 | INFO     |   03_hyperparameter_tuning_v2.py  —  START
+2026-03-26 00:19:35 | INFO     |   Train: 2015-01-01 → 2023-12-31
+2026-03-26 00:19:35 | INFO     |   Val:   2024-01-01 → 2024-12-31
+2026-03-26 00:19:35 | INFO     |   TEST SET: LOCKED (not loaded at any point)
+2026-03-26 00:19:35 | INFO     |   N_TRIALS=215  |  EPOCHS_PER_TRIAL=50  |  SEQ_LEN=30
+2026-03-26 00:19:35 | INFO     |   [V2-2] units_2 = units_1 // 2  (deterministic, not sampled)
+2026-03-26 00:19:35 | INFO     |   DB: sqlite:///optuna_study_v2.db
+2026-03-26 00:19:35 | INFO     |   → Press Ctrl+C at any time to stop and export results.
+2026-03-26 00:19:35 | INFO     | =================================================================
+2026-03-26 00:19:35 | INFO     | [STEP 1] Loading and preparing v2 data ...
+2026-03-26 00:19:35 | INFO     | Loading v2 dataset from 'processed_dataset_v2.csv' ...
+2026-03-26 00:19:35 | INFO     | Full dataset: 4055 rows  [2014-11-24 → 2025-12-30]
+2026-03-26 00:19:35 | INFO     |   Train →  3287 rows  [2015-01-01 → 2023-12-31]
+2026-03-26 00:19:35 | INFO     |   Val   →   366 rows  [2024-01-01 → 2024-12-31]
+2026-03-26 00:19:35 | INFO     | Pruned toxic features: ['gold_log_return', 'nvda_log_return']
+2026-03-26 00:19:35 | INFO     | Features (12): ['btc_close', 'spy_close', 'gold_close', 'nvda_close', 'dxy_close', 'vix_close', 'is_weekend', 'btc_log_return', 'vix_level', 'btc_volume_ratio', 'btc_rsi_14', 'btc_roll_vol_21']
+2026-03-26 00:19:35 | INFO     | Scaler fitted on Train. Feature means: {'btc_close': 15041.62562, 'spy_close': 285.7422, 'gold_close': 1515.43949, 'nvda_close': 11.10003, 'dxy_close': 97.38831, 'vix_close': 18.47741, 'is_weekend': 0.28598, 'btc_log_return': 0.00149, 'vix_level': 18.47741, 'btc_volume_ratio': -0.02347, 'btc_rsi_14': 0.53697, 'btc_roll_vol_21': 0.03317}
+2026-03-26 00:19:35 | INFO     | Sample weights — Train: n=3258  mean=1.0000 | Val: n=337  mean=1.0000
+2026-03-26 00:19:35 | INFO     | Windows (preview) — Train: 3258 | Val: 337
+2026-03-26 00:19:35 | INFO     | [STEP 2] Creating / resuming Optuna study 'btc_lstm_v3' ...
+2026-03-26 00:19:35 | INFO     | Study loaded. Completed so far: 0 / 215. Remaining: 215.
+2026-03-26 00:19:35 | INFO     | [STEP 3] Building objective function ...
+2026-03-26 00:19:35 | INFO     | [STEP 4] Running study.optimize() — 215 trials remaining ...
+2026-03-26 00:19:36 | WARNING  | From D:\vsc\.venv\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-03-26 00:21:47 | INFO     | Trial   0  ValAUC=0.5437  TrainAUC=0.5629  AUC_Δ=0.0192  ACC_Δ=0.0297  VarB_Cov=0.29  VarB_CWR=0.5408  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=32  epochs=14  elapsed=132s  ★ NEW BEST
+2026-03-26 00:23:58 | INFO     | Trial   1  ValAUC=0.5426  TrainAUC=0.5511  AUC_Δ=0.0086  ACC_Δ=-0.0125  VarB_Cov=0.01  VarB_CWR=0.7500  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=32  epochs=14  elapsed=262s
+2026-03-26 00:26:01 | INFO     | Trial   2  ValAUC=0.5493  TrainAUC=0.5714  AUC_Δ=0.0221  ACC_Δ=0.0233  VarB_Cov=0.28  VarB_CWR=0.5938  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=64  epochs=23  elapsed=386s  ★ NEW BEST
+2026-03-26 00:27:01 | WARNING  | 5 out of the last 58 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000027F3FA59DA0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-03-26 00:27:03 | INFO     | Trial   3  ValAUC=0.4804  TrainAUC=0.5372  AUC_Δ=0.0568  ACC_Δ=0.0019  VarB_Cov=0.00  VarB_CWR=-1.0000  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=64  epochs=11  elapsed=448s
+2026-03-26 00:28:56 | WARNING  | 5 out of the last 58 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x0000027F494456C0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-03-26 00:28:59 | INFO     | Trial   4  ValAUC=0.5375  TrainAUC=0.5659  AUC_Δ=0.0284  ACC_Δ=0.0496  VarB_Cov=0.50  VarB_CWR=0.5118  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=64  epochs=21  elapsed=563s
+2026-03-26 00:31:18 | INFO     | Trial   5  ValAUC=0.5625  TrainAUC=0.5859  AUC_Δ=0.0234  ACC_Δ=0.0321  VarB_Cov=0.38  VarB_CWR=0.5591  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=64  epochs=26  elapsed=702s  ★ NEW BEST
+2026-03-26 00:33:53 | INFO     | Trial   6  ValAUC=0.5430  TrainAUC=0.5849  AUC_Δ=0.0419  ACC_Δ=0.0198  VarB_Cov=0.36  VarB_CWR=0.5082  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=64  epochs=29  elapsed=858s
+2026-03-26 00:35:39 | INFO     | Trial   7  ValAUC=0.5471  TrainAUC=0.5584  AUC_Δ=0.0113  ACC_Δ=-0.0002  VarB_Cov=0.31  VarB_CWR=0.5340  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=64  epochs=19  elapsed=964s
+2026-03-26 00:37:25 | INFO     | Trial   8  ValAUC=0.5327  TrainAUC=0.5612  AUC_Δ=0.0285  ACC_Δ=0.0756  VarB_Cov=0.44  VarB_CWR=0.4966  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.002  bs=64  epochs=19  elapsed=1070s
+2026-03-26 00:39:27 | INFO     | Trial   9  ValAUC=0.5261  TrainAUC=0.5467  AUC_Δ=0.0206  ACC_Δ=0.0008  VarB_Cov=0.00  VarB_CWR=-1.0000  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=64  epochs=22  elapsed=1192s
+2026-03-26 00:43:55 | INFO     | Trial  10  ValAUC=0.5488  TrainAUC=0.5369  AUC_Δ=-0.0119  ACC_Δ=0.0590  VarB_Cov=0.72  VarB_CWR=0.5082  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=32  epochs=29  elapsed=1460s
+2026-03-26 00:46:37 | INFO     | Trial  11  ValAUC=0.5414  TrainAUC=0.6119  AUC_Δ=0.0705  ACC_Δ=0.0343  VarB_Cov=0.36  VarB_CWR=0.5528  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=64  epochs=30  elapsed=1622s
+2026-03-26 00:48:42 | INFO     | Trial  12  ValAUC=0.5332  TrainAUC=0.5639  AUC_Δ=0.0307  ACC_Δ=0.0124  VarB_Cov=0.27  VarB_CWR=0.5109  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=64  epochs=22  elapsed=1747s
+2026-03-26 00:51:02 | INFO     | Trial  13  ValAUC=0.5401  TrainAUC=0.5787  AUC_Δ=0.0386  ACC_Δ=0.0282  VarB_Cov=0.47  VarB_CWR=0.5409  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=64  epochs=25  elapsed=1887s
+2026-03-26 00:53:59 | INFO     | Trial  14  ValAUC=0.5182  TrainAUC=0.5346  AUC_Δ=0.0164  ACC_Δ=0.0117  VarB_Cov=0.21  VarB_CWR=0.5571  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=32  epochs=19  elapsed=2063s
+2026-03-26 00:56:17 | INFO     | Trial  15  ValAUC=0.5214  TrainAUC=0.5803  AUC_Δ=0.0590  ACC_Δ=0.0639  VarB_Cov=0.30  VarB_CWR=0.5400  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=64  epochs=26  elapsed=2201s
+2026-03-26 00:58:49 | INFO     | Trial  16  ValAUC=0.5558  TrainAUC=0.6004  AUC_Δ=0.0445  ACC_Δ=0.0575  VarB_Cov=0.42  VarB_CWR=0.5745  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=64  epochs=29  elapsed=2354s
+2026-03-26 01:01:33 | INFO     | Trial  17  ValAUC=0.5530  TrainAUC=0.5970  AUC_Δ=0.0441  ACC_Δ=0.0105  VarB_Cov=0.28  VarB_CWR=0.5426  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=64  epochs=31  elapsed=2518s
+2026-03-26 01:06:41 | INFO     | Trial  18  ValAUC=0.5395  TrainAUC=0.5380  AUC_Δ=-0.0016  ACC_Δ=0.0037  VarB_Cov=0.00  VarB_CWR=-1.0000  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=32  epochs=33  elapsed=2826s
+2026-03-26 01:09:21 | INFO     | Trial  19  ValAUC=0.5240  TrainAUC=0.6025  AUC_Δ=0.0786  ACC_Δ=0.0689  VarB_Cov=0.55  VarB_CWR=0.5326  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=64  epochs=27  elapsed=2986s
+2026-03-31 23:11:00 | INFO     | =================================================================
+2026-03-31 23:11:00 | INFO     |   03_hyperparameter_tuning_v2.py  —  DUAL-OPTUNA START
+2026-03-31 23:11:00 | INFO     |   Train: 2015-01-01 → 2023-12-31  |  Val: 2024-01-01 → 2024-12-31
+2026-03-31 23:11:00 | INFO     |   TEST SET: LOCKED (not loaded at any point)
+2026-03-31 23:11:00 | INFO     |   N_TRIALS_PER_RUN=100  |  EPOCHS_PER_TRIAL=50  |  SEQ_LEN=30
+2026-03-31 23:11:00 | INFO     |   → Press Ctrl+C at any time to stop and export results.
+2026-03-31 23:11:00 | INFO     | =================================================================
+2026-03-31 23:11:00 | INFO     | [STEP 1] Loading and preparing v2 data ...
+2026-03-31 23:11:00 | INFO     | Loading v2 dataset from 'processed_dataset_v2.csv' ...
+2026-03-31 23:11:00 | INFO     | Full dataset: 4055 rows  [2014-11-24 → 2025-12-30]
+2026-03-31 23:11:00 | INFO     |   Train →  3287 rows  [2015-01-01 → 2023-12-31]
+2026-03-31 23:11:00 | INFO     |   Val   →   366 rows  [2024-01-01 → 2024-12-31]
+2026-03-31 23:11:00 | INFO     | Pruned toxic features: ['gold_log_return', 'nvda_log_return']
+2026-03-31 23:11:00 | INFO     | Features (12): ['btc_close', 'spy_close', 'gold_close', 'nvda_close', 'dxy_close', 'vix_close', 'is_weekend', 'btc_log_return', 'vix_level', 'btc_volume_ratio', 'btc_rsi_14', 'btc_roll_vol_21']
+2026-03-31 23:11:00 | INFO     | Scaler fitted on Train. Feature means: {'btc_close': 15041.62562, 'spy_close': 285.7422, 'gold_close': 1515.43949, 'nvda_close': 11.10003, 'dxy_close': 97.38831, 'vix_close': 18.47741, 'is_weekend': 0.28598, 'btc_log_return': 0.00149, 'vix_level': 18.47741, 'btc_volume_ratio': -0.02347, 'btc_rsi_14': 0.53697, 'btc_roll_vol_21': 0.03317}
+2026-03-31 23:11:00 | INFO     | Windows (preview) — Train: 3258 | Val: 337
+2026-03-31 23:11:00 | INFO     | Features after pruning: 12
+2026-03-31 23:11:00 | INFO     | =================================================================
+2026-03-31 23:11:00 | INFO     |   OPTUNA SESSION: LSTM_UNWEIGHTED  |  use_weights=False
+2026-03-31 23:11:00 | INFO     |   n_trials=100  |  DB: sqlite:///optuna_unweighted.db
+2026-03-31 23:11:00 | INFO     | =================================================================
+2026-03-31 23:11:01 | INFO     | Completed so far: 0 / 100.  Remaining: 100.
+2026-03-31 23:11:01 | WARNING  | From D:\vsc\.venv\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-03-31 23:11:33 | INFO     | =================================================================
+2026-03-31 23:11:33 | INFO     |   03_hyperparameter_tuning_v2.py  —  DUAL-OPTUNA START
+2026-03-31 23:11:33 | INFO     |   Train: 2015-01-01 → 2023-12-31  |  Val: 2024-01-01 → 2024-12-31
+2026-03-31 23:11:33 | INFO     |   TEST SET: LOCKED (not loaded at any point)
+2026-03-31 23:11:33 | INFO     |   N_TRIALS_PER_RUN=100  |  EPOCHS_PER_TRIAL=50  |  SEQ_LEN=30
+2026-03-31 23:11:33 | INFO     |   → Press Ctrl+C at any time to stop and export results.
+2026-03-31 23:11:33 | INFO     | =================================================================
+2026-03-31 23:11:33 | INFO     | [STEP 1] Loading and preparing v2 data ...
+2026-03-31 23:11:33 | INFO     | Loading v2 dataset from 'processed_dataset_v2.csv' ...
+2026-03-31 23:11:33 | INFO     | Full dataset: 4055 rows  [2014-11-24 → 2025-12-30]
+2026-03-31 23:11:33 | INFO     |   Train →  3287 rows  [2015-01-01 → 2023-12-31]
+2026-03-31 23:11:33 | INFO     |   Val   →   366 rows  [2024-01-01 → 2024-12-31]
+2026-03-31 23:11:33 | INFO     | Pruned toxic features: ['gold_log_return', 'nvda_log_return']
+2026-03-31 23:11:33 | INFO     | Features (12): ['btc_close', 'spy_close', 'gold_close', 'nvda_close', 'dxy_close', 'vix_close', 'is_weekend', 'btc_log_return', 'vix_level', 'btc_volume_ratio', 'btc_rsi_14', 'btc_roll_vol_21']
+2026-03-31 23:11:33 | INFO     | Scaler fitted on Train. Feature means: {'btc_close': 15041.62562, 'spy_close': 285.7422, 'gold_close': 1515.43949, 'nvda_close': 11.10003, 'dxy_close': 97.38831, 'vix_close': 18.47741, 'is_weekend': 0.28598, 'btc_log_return': 0.00149, 'vix_level': 18.47741, 'btc_volume_ratio': -0.02347, 'btc_rsi_14': 0.53697, 'btc_roll_vol_21': 0.03317}
+2026-03-31 23:11:33 | INFO     | Windows (preview) — Train: 3258 | Val: 337
+2026-03-31 23:11:33 | INFO     | Features after pruning: 12
+2026-03-31 23:11:33 | INFO     | =================================================================
+2026-03-31 23:11:33 | INFO     |   OPTUNA SESSION: LSTM_UNWEIGHTED  |  use_weights=False
+2026-03-31 23:11:33 | INFO     |   n_trials=100  |  DB: sqlite:///optuna_unweighted.db
+2026-03-31 23:11:33 | INFO     | =================================================================
+2026-03-31 23:11:34 | INFO     | Completed so far: 0 / 100.  Remaining: 100.
+2026-03-31 23:11:34 | WARNING  | From D:\vsc\.venv\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-03-31 23:13:46 | INFO     | Trial   1  ValAUC=0.5364  TrainAUC=0.5739  AUC_Δ=0.0376  ACC_Δ=0.0199  VarB_Cov=0.56  VarB_CWR=0.5450  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=23  elapsed=132s  ★ NEW BEST
+2026-03-31 23:15:48 | INFO     | Trial   2  ValAUC=0.5637  TrainAUC=0.5549  AUC_Δ=-0.0088  ACC_Δ=0.0064  VarB_Cov=0.09  VarB_CWR=0.6129  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=21  elapsed=254s  ★ NEW BEST
+2026-03-31 23:18:15 | WARNING  | KeyboardInterrupt caught — exporting partial results.
+2026-03-31 23:18:15 | INFO     | Wall-clock time: 400.8 s  (6.7 min).
+2026-03-31 23:18:15 | INFO     | Study 'lstm_unweighted' ended — 4 total trials  (2 COMPLETE, 2 FAIL/PRUNED).
+2026-03-31 23:18:15 | INFO     | Full results exported (sorted Val AUC ↓) → tuning_results_lstm_unweighted.csv  (4 rows)
+2026-03-31 23:18:15 | INFO     | Full results also exported → tuning_results_lstm_unweighted.xlsx  (4 rows)
+2026-03-31 23:18:15 | INFO     | Best params saved → best_params_lstm_unweighted.json
+2026-03-31 23:18:15 | INFO     | Top-5 params saved → top_5_params_lstm_unweighted.json  (Val AUC 0.5637 → 0.5364)
+2026-03-31 23:18:15 | INFO     | === COMPLETED SESSION: LSTM_UNWEIGHTED ===
+2026-03-31 23:18:15 | INFO     | =================================================================
+2026-03-31 23:18:15 | INFO     |   OPTUNA SESSION: LSTM_WEIGHTED  |  use_weights=True
+2026-03-31 23:18:15 | INFO     |   n_trials=100  |  DB: sqlite:///optuna_weighted.db
+2026-03-31 23:18:15 | INFO     | =================================================================
+2026-03-31 23:18:31 | INFO     | =================================================================
+2026-03-31 23:18:31 | INFO     |   03_hyperparameter_tuning_v2.py  —  DUAL-OPTUNA START
+2026-03-31 23:18:31 | INFO     |   Train: 2015-01-01 → 2023-12-31  |  Val: 2024-01-01 → 2024-12-31
+2026-03-31 23:18:31 | INFO     |   TEST SET: LOCKED (not loaded at any point)
+2026-03-31 23:18:31 | INFO     |   N_TRIALS_PER_RUN=50  |  EPOCHS_PER_TRIAL=50  |  SEQ_LEN=30
+2026-03-31 23:18:31 | INFO     |   → Press Ctrl+C at any time to stop and export results.
+2026-03-31 23:18:31 | INFO     | =================================================================
+2026-03-31 23:18:31 | INFO     | [STEP 1] Loading and preparing v2 data ...
+2026-03-31 23:18:31 | INFO     | Loading v2 dataset from 'processed_dataset_v2.csv' ...
+2026-03-31 23:18:31 | INFO     | Full dataset: 4055 rows  [2014-11-24 → 2025-12-30]
+2026-03-31 23:18:31 | INFO     |   Train →  3287 rows  [2015-01-01 → 2023-12-31]
+2026-03-31 23:18:31 | INFO     |   Val   →   366 rows  [2024-01-01 → 2024-12-31]
+2026-03-31 23:18:31 | INFO     | Pruned toxic features: ['gold_log_return', 'nvda_log_return']
+2026-03-31 23:18:31 | INFO     | Features (12): ['btc_close', 'spy_close', 'gold_close', 'nvda_close', 'dxy_close', 'vix_close', 'is_weekend', 'btc_log_return', 'vix_level', 'btc_volume_ratio', 'btc_rsi_14', 'btc_roll_vol_21']
+2026-03-31 23:18:31 | INFO     | Scaler fitted on Train. Feature means: {'btc_close': 15041.62562, 'spy_close': 285.7422, 'gold_close': 1515.43949, 'nvda_close': 11.10003, 'dxy_close': 97.38831, 'vix_close': 18.47741, 'is_weekend': 0.28598, 'btc_log_return': 0.00149, 'vix_level': 18.47741, 'btc_volume_ratio': -0.02347, 'btc_rsi_14': 0.53697, 'btc_roll_vol_21': 0.03317}
+2026-03-31 23:18:31 | INFO     | Windows (preview) — Train: 3258 | Val: 337
+2026-03-31 23:18:31 | INFO     | Features after pruning: 12
+2026-03-31 23:18:31 | INFO     | =================================================================
+2026-03-31 23:18:31 | INFO     |   OPTUNA SESSION: LSTM_UNWEIGHTED  |  use_weights=False
+2026-03-31 23:18:31 | INFO     |   n_trials=50  |  DB: sqlite:///optuna_unweighted.db
+2026-03-31 23:18:31 | INFO     | =================================================================
+2026-03-31 23:18:32 | INFO     | Completed so far: 2 / 50.  Remaining: 48.
+2026-03-31 23:18:33 | WARNING  | From D:\vsc\.venv\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-03-31 23:20:49 | INFO     | Trial   4  ValAUC=0.5465  TrainAUC=0.5707  AUC_Δ=0.0243  ACC_Δ=0.0109  VarB_Cov=0.53  VarB_CWR=0.5674  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=22  elapsed=137s
+2026-03-31 23:24:22 | INFO     | Trial   5  ValAUC=0.5075  TrainAUC=0.5725  AUC_Δ=0.0651  ACC_Δ=0.0235  VarB_Cov=0.59  VarB_CWR=0.5450  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=36  elapsed=350s
+2026-03-31 23:26:27 | INFO     | Trial   6  ValAUC=0.5377  TrainAUC=0.5761  AUC_Δ=0.0384  ACC_Δ=0.0339  VarB_Cov=0.55  VarB_CWR=0.5484  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=21  elapsed=476s
+2026-03-31 23:28:53 | WARNING  | KeyboardInterrupt caught — exporting partial results.
+2026-03-31 23:28:53 | INFO     | Wall-clock time: 620.9 s  (10.3 min).
+2026-03-31 23:28:53 | INFO     | Study 'lstm_unweighted' ended — 8 total trials  (5 COMPLETE, 3 FAIL/PRUNED).
+2026-03-31 23:28:53 | INFO     | Full results exported (sorted Val AUC ↓) → tuning_results_lstm_unweighted.csv  (8 rows)
+2026-03-31 23:28:53 | INFO     | Full results also exported → tuning_results_lstm_unweighted.xlsx  (8 rows)
+2026-03-31 23:28:53 | INFO     | Best params saved → best_params_lstm_unweighted.json
+2026-03-31 23:28:53 | INFO     | Top-5 params saved → top_5_params_lstm_unweighted.json  (Val AUC 0.5637 → 0.5075)
+2026-03-31 23:28:53 | INFO     | === COMPLETED SESSION: LSTM_UNWEIGHTED ===
+2026-03-31 23:28:53 | INFO     | =================================================================
+2026-03-31 23:28:53 | INFO     |   OPTUNA SESSION: LSTM_WEIGHTED  |  use_weights=True
+2026-03-31 23:28:53 | INFO     |   n_trials=50  |  DB: sqlite:///optuna_weighted.db
+2026-03-31 23:28:53 | INFO     | =================================================================
+2026-03-31 23:28:53 | INFO     | Completed so far: 0 / 50.  Remaining: 50.
+2026-03-31 23:29:02 | WARNING  | KeyboardInterrupt caught — exporting partial results.
+2026-03-31 23:29:02 | INFO     | Wall-clock time: 8.9 s  (0.1 min).
+2026-03-31 23:29:02 | INFO     | Study 'lstm_weighted' ended — 1 total trials  (0 COMPLETE, 1 FAIL/PRUNED).
+2026-03-31 23:29:02 | WARNING  | No completed trials to export.
+2026-03-31 23:29:02 | INFO     | === COMPLETED SESSION: LSTM_WEIGHTED ===
+2026-03-31 23:29:02 | INFO     | 03_hyperparameter_tuning_v2.py  —  DUAL-OPTUNA COMPLETE
+2026-03-31 23:31:42 | INFO     | =================================================================
+2026-03-31 23:31:42 | INFO     |   03_hyperparameter_tuning_v2.py  —  DUAL-OPTUNA START
+2026-03-31 23:31:42 | INFO     |   Train: 2015-01-01 → 2023-12-31  |  Val: 2024-01-01 → 2024-12-31
+2026-03-31 23:31:42 | INFO     |   TEST SET: LOCKED (not loaded at any point)
+2026-03-31 23:31:42 | INFO     |   N_TRIALS_PER_RUN=50  |  EPOCHS_PER_TRIAL=50  |  SEQ_LEN=30
+2026-03-31 23:31:42 | INFO     |   → Press Ctrl+C at any time to stop and export results.
+2026-03-31 23:31:42 | INFO     | =================================================================
+2026-03-31 23:31:42 | INFO     | [STEP 1] Loading and preparing v2 data ...
+2026-03-31 23:31:42 | INFO     | Loading v2 dataset from 'processed_dataset_v2.csv' ...
+2026-03-31 23:31:42 | INFO     | Full dataset: 4055 rows  [2014-11-24 → 2025-12-30]
+2026-03-31 23:31:42 | INFO     |   Train →  3287 rows  [2015-01-01 → 2023-12-31]
+2026-03-31 23:31:42 | INFO     |   Val   →   366 rows  [2024-01-01 → 2024-12-31]
+2026-03-31 23:31:42 | INFO     | Pruned toxic features: ['gold_log_return', 'nvda_log_return']
+2026-03-31 23:31:42 | INFO     | Features (12): ['btc_close', 'spy_close', 'gold_close', 'nvda_close', 'dxy_close', 'vix_close', 'is_weekend', 'btc_log_return', 'vix_level', 'btc_volume_ratio', 'btc_rsi_14', 'btc_roll_vol_21']
+2026-03-31 23:31:42 | INFO     | Scaler fitted on Train. Feature means: {'btc_close': 15041.62562, 'spy_close': 285.7422, 'gold_close': 1515.43949, 'nvda_close': 11.10003, 'dxy_close': 97.38831, 'vix_close': 18.47741, 'is_weekend': 0.28598, 'btc_log_return': 0.00149, 'vix_level': 18.47741, 'btc_volume_ratio': -0.02347, 'btc_rsi_14': 0.53697, 'btc_roll_vol_21': 0.03317}
+2026-03-31 23:31:42 | INFO     | Windows (preview) — Train: 3258 | Val: 337
+2026-03-31 23:31:42 | INFO     | Features after pruning: 12
+2026-03-31 23:31:42 | INFO     | =================================================================
+2026-03-31 23:31:42 | INFO     |   OPTUNA SESSION: LSTM_UNWEIGHTED  |  use_weights=False
+2026-03-31 23:31:42 | INFO     |   n_trials=50  |  DB: sqlite:///optuna_dual_study.db
+2026-03-31 23:31:42 | INFO     | =================================================================
+2026-03-31 23:31:43 | INFO     | Completed so far: 0 / 50.  Remaining: 50.
+2026-03-31 23:31:43 | WARNING  | From D:\vsc\.venv\Lib\site-packages\keras\src\backend\common\global_state.py:82: The name tf.reset_default_graph is deprecated. Please use tf.compat.v1.reset_default_graph instead.
+
+2026-03-31 23:33:53 | INFO     | Trial   0  ValAUC=0.5516  TrainAUC=0.5732  AUC_Δ=0.0215  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=23  elapsed=131s  ★ NEW BEST
+2026-03-31 23:35:33 | INFO     | Trial   1  ValAUC=0.5263  TrainAUC=0.5524  AUC_Δ=0.0261  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=17  elapsed=230s
+2026-03-31 23:37:26 | INFO     | Trial   2  ValAUC=0.5369  TrainAUC=0.5713  AUC_Δ=0.0344  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=21  elapsed=343s
+2026-03-31 23:39:38 | INFO     | Trial   3  ValAUC=0.5462  TrainAUC=0.5642  AUC_Δ=0.0180  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=24  elapsed=475s
+2026-03-31 23:41:19 | INFO     | Trial   4  ValAUC=0.5215  TrainAUC=0.5675  AUC_Δ=0.0460  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=17  elapsed=576s
+2026-03-31 23:44:26 | INFO     | Trial   5  ValAUC=0.5632  TrainAUC=0.5890  AUC_Δ=0.0258  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=32  elapsed=763s  ★ NEW BEST
+2026-03-31 23:47:18 | INFO     | Trial   6  ValAUC=0.5299  TrainAUC=0.5743  AUC_Δ=0.0444  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=31  elapsed=935s
+2026-03-31 23:50:00 | INFO     | Trial   7  ValAUC=0.5298  TrainAUC=0.5953  AUC_Δ=0.0656  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=29  elapsed=1097s
+2026-03-31 23:52:20 | INFO     | Trial   8  ValAUC=0.5473  TrainAUC=0.5802  AUC_Δ=0.0330  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=25  elapsed=1238s
+2026-03-31 23:54:52 | INFO     | Trial   9  ValAUC=0.5629  TrainAUC=0.5824  AUC_Δ=0.0195  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=27  elapsed=1390s
+2026-03-31 23:57:42 | INFO     | Trial  10  ValAUC=0.5252  TrainAUC=0.5497  AUC_Δ=0.0244  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=29  elapsed=1559s
+2026-04-01 00:00:09 | INFO     | Trial  11  ValAUC=0.5753  TrainAUC=0.5824  AUC_Δ=0.0072  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=24  elapsed=1706s  ★ NEW BEST
+2026-04-01 00:03:25 | INFO     | Trial  12  ValAUC=0.5406  TrainAUC=0.5936  AUC_Δ=0.0530  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=32  elapsed=1902s
+2026-04-01 00:05:58 | INFO     | Trial  13  ValAUC=0.5376  TrainAUC=0.5774  AUC_Δ=0.0399  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=25  elapsed=2056s
+2026-04-01 00:08:14 | INFO     | Trial  14  ValAUC=0.5531  TrainAUC=0.5660  AUC_Δ=0.0129  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=24  elapsed=2192s
+2026-04-01 00:11:23 | INFO     | Trial  15  ValAUC=0.5302  TrainAUC=0.5960  AUC_Δ=0.0658  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=33  elapsed=2380s
+2026-04-01 00:13:42 | INFO     | Trial  16  ValAUC=0.5482  TrainAUC=0.5867  AUC_Δ=0.0385  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=25  elapsed=2519s
+2026-04-01 00:16:01 | INFO     | Trial  17  ValAUC=0.5295  TrainAUC=0.5841  AUC_Δ=0.0546  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=25  elapsed=2658s
+2026-04-01 00:18:58 | INFO     | Trial  18  ValAUC=0.5287  TrainAUC=0.5387  AUC_Δ=0.0100  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.002  bs=?  epochs=32  elapsed=2836s
+2026-04-01 00:21:08 | INFO     | Trial  19  ValAUC=0.5466  TrainAUC=0.5690  AUC_Δ=0.0223  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=23  elapsed=2966s
+2026-04-01 00:23:58 | INFO     | Trial  20  ValAUC=0.5398  TrainAUC=0.5839  AUC_Δ=0.0440  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=30  elapsed=3135s
+2026-04-01 00:26:18 | INFO     | Trial  21  ValAUC=0.5414  TrainAUC=0.5899  AUC_Δ=0.0485  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=25  elapsed=3275s
+2026-04-01 00:29:05 | INFO     | Trial  22  ValAUC=0.5317  TrainAUC=0.5931  AUC_Δ=0.0614  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=30  elapsed=3442s
+2026-04-01 00:32:03 | INFO     | Trial  23  ValAUC=0.5529  TrainAUC=0.5981  AUC_Δ=0.0453  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=32  elapsed=3621s
+2026-04-01 00:35:34 | INFO     | Trial  24  ValAUC=0.5278  TrainAUC=0.6049  AUC_Δ=0.0771  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=37  elapsed=3831s
+2026-04-01 00:37:45 | INFO     | Trial  25  ValAUC=0.5583  TrainAUC=0.5739  AUC_Δ=0.0156  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=24  elapsed=3962s
+2026-04-01 00:39:29 | INFO     | Trial  26  ValAUC=0.5475  TrainAUC=0.5848  AUC_Δ=0.0373  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=19  elapsed=4066s
+2026-04-01 00:42:08 | INFO     | Trial  27  ValAUC=0.5314  TrainAUC=0.5901  AUC_Δ=0.0587  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=28  elapsed=4225s
+2026-04-01 00:44:46 | INFO     | Trial  28  ValAUC=0.5414  TrainAUC=0.5710  AUC_Δ=0.0296  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=23  elapsed=4384s
+2026-04-01 00:47:33 | INFO     | Trial  29  ValAUC=0.5449  TrainAUC=0.5665  AUC_Δ=0.0216  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=24  elapsed=4550s
+2026-04-01 00:51:22 | INFO     | Trial  30  ValAUC=0.5329  TrainAUC=0.5707  AUC_Δ=0.0378  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=32  elapsed=4779s
+2026-04-01 00:54:20 | INFO     | Trial  31  ValAUC=0.5589  TrainAUC=0.5822  AUC_Δ=0.0234  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=24  elapsed=4958s
+2026-04-01 00:58:34 | INFO     | Trial  32  ValAUC=0.5323  TrainAUC=0.5793  AUC_Δ=0.0470  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=34  elapsed=5212s
+2026-04-01 01:02:53 | INFO     | Trial  33  ValAUC=0.5506  TrainAUC=0.6021  AUC_Δ=0.0515  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=34  elapsed=5471s
+2026-04-01 01:07:05 | INFO     | Trial  34  ValAUC=0.5290  TrainAUC=0.5922  AUC_Δ=0.0632  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=31  elapsed=5722s
+2026-04-01 01:09:23 | INFO     | Trial  35  ValAUC=0.5469  TrainAUC=0.5634  AUC_Δ=0.0165  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=16  elapsed=5860s
+2026-04-01 01:14:49 | INFO     | Trial  36  ValAUC=0.5537  TrainAUC=0.5975  AUC_Δ=0.0437  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=37  elapsed=6186s
+2026-04-01 01:19:15 | INFO     | Trial  37  ValAUC=0.5533  TrainAUC=0.5875  AUC_Δ=0.0341  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=29  elapsed=6452s
+2026-04-01 01:24:39 | INFO     | Trial  38  ValAUC=0.5227  TrainAUC=0.5400  AUC_Δ=0.0174  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.002  bs=?  epochs=34  elapsed=6777s
+2026-04-01 01:29:07 | INFO     | Trial  39  ValAUC=0.5451  TrainAUC=0.5918  AUC_Δ=0.0467  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=29  elapsed=7045s
+2026-04-01 01:33:35 | INFO     | Trial  40  ValAUC=0.5409  TrainAUC=0.5794  AUC_Δ=0.0385  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=27  elapsed=7312s
+2026-04-01 01:38:33 | INFO     | Trial  41  ValAUC=0.5255  TrainAUC=0.5911  AUC_Δ=0.0655  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=29  elapsed=7610s
+2026-04-01 01:43:28 | INFO     | Trial  42  ValAUC=0.5356  TrainAUC=0.5902  AUC_Δ=0.0546  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=29  elapsed=7905s
+2026-04-01 01:50:17 | INFO     | Trial  43  ValAUC=0.5369  TrainAUC=0.6037  AUC_Δ=0.0669  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=38  elapsed=8314s
+2026-04-01 01:55:51 | INFO     | Trial  44  ValAUC=0.5587  TrainAUC=0.5855  AUC_Δ=0.0269  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=30  elapsed=8648s
+2026-04-01 02:01:26 | INFO     | Trial  45  ValAUC=0.5298  TrainAUC=0.5908  AUC_Δ=0.0611  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=29  elapsed=8983s
+2026-04-01 02:06:25 | INFO     | Trial  46  ValAUC=0.5531  TrainAUC=0.5546  AUC_Δ=0.0015  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=26  elapsed=9282s
+2026-04-01 02:12:26 | INFO     | Trial  47  ValAUC=0.5791  TrainAUC=0.5905  AUC_Δ=0.0114  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=30  elapsed=9643s  ★ NEW BEST
+2026-04-01 02:17:04 | INFO     | Trial  48  ValAUC=0.5605  TrainAUC=0.5844  AUC_Δ=0.0239  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=23  elapsed=9921s
+2026-04-01 02:21:46 | INFO     | Trial  49  ValAUC=0.5426  TrainAUC=0.5696  AUC_Δ=0.0270  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=24  elapsed=10204s
+2026-04-01 02:21:46 | INFO     | study.optimize() completed normally.
+2026-04-01 02:21:46 | INFO     | Wall-clock time: 10203.8 s  (170.1 min).
+2026-04-01 02:21:46 | INFO     | Study 'lstm_unweighted' ended — 50 total trials  (50 COMPLETE, 0 FAIL/PRUNED).
+2026-04-01 02:21:46 | INFO     | Full results exported (sorted Val AUC ↓) → tuning_results_lstm_unweighted.csv  (50 rows)
+2026-04-01 02:21:46 | INFO     | Full results also exported → tuning_results_lstm_unweighted.xlsx  (50 rows)
+2026-04-01 02:21:46 | INFO     | Best params saved → best_params_lstm_unweighted.json
+2026-04-01 02:21:46 | INFO     | Top-5 params saved → top_5_params_lstm_unweighted.json  (Val AUC 0.5791 → 0.5605)
+2026-04-01 02:21:46 | INFO     | === COMPLETED SESSION: LSTM_UNWEIGHTED ===
+2026-04-01 02:21:46 | INFO     | =================================================================
+2026-04-01 02:21:46 | INFO     |   OPTUNA SESSION: LSTM_WEIGHTED  |  use_weights=True
+2026-04-01 02:21:46 | INFO     |   n_trials=50  |  DB: sqlite:///optuna_dual_study.db
+2026-04-01 02:21:46 | INFO     | =================================================================
+2026-04-01 02:21:47 | INFO     | Completed so far: 0 / 50.  Remaining: 50.
+2026-04-01 02:26:29 | INFO     | Trial   0  ValAUC=0.5556  TrainAUC=0.5623  AUC_Δ=0.0067  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=24  elapsed=282s  ★ NEW BEST
+2026-04-01 02:30:03 | WARNING  | 5 out of the last 58 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001937938FC40> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-04-01 02:30:07 | INFO     | Trial   1  ValAUC=0.5293  TrainAUC=0.5506  AUC_Δ=0.0213  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=21  elapsed=500s
+2026-04-01 02:33:56 | WARNING  | 5 out of the last 58 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000001937E4D7100> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+2026-04-01 02:33:59 | INFO     | Trial   2  ValAUC=0.5251  TrainAUC=0.5543  AUC_Δ=0.0292  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=22  elapsed=733s
+2026-04-01 02:38:18 | INFO     | Trial   3  ValAUC=0.5583  TrainAUC=0.5558  AUC_Δ=-0.0026  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=24  elapsed=991s  ★ NEW BEST
+2026-04-01 02:42:48 | INFO     | Trial   4  ValAUC=0.5183  TrainAUC=0.5460  AUC_Δ=0.0277  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=27  elapsed=1262s
+2026-04-01 02:46:22 | INFO     | Trial   5  ValAUC=0.5430  TrainAUC=0.5664  AUC_Δ=0.0234  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=21  elapsed=1475s
+2026-04-01 02:50:18 | INFO     | Trial   6  ValAUC=0.5189  TrainAUC=0.5694  AUC_Δ=0.0505  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=24  elapsed=1712s
+2026-04-01 02:54:36 | INFO     | Trial   7  ValAUC=0.5482  TrainAUC=0.5802  AUC_Δ=0.0320  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=26  elapsed=1970s
+2026-04-01 02:58:40 | INFO     | Trial   8  ValAUC=0.5288  TrainAUC=0.5707  AUC_Δ=0.0419  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=24  elapsed=2214s
+2026-04-01 03:03:18 | INFO     | Trial   9  ValAUC=0.5377  TrainAUC=0.5723  AUC_Δ=0.0346  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.001  bs=?  epochs=27  elapsed=2492s
+2026-04-01 03:09:17 | INFO     | Trial  10  ValAUC=0.5420  TrainAUC=0.5363  AUC_Δ=-0.0058  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=35  elapsed=2851s
+2026-04-01 03:13:08 | INFO     | Trial  11  ValAUC=0.5405  TrainAUC=0.5585  AUC_Δ=0.0180  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=22  elapsed=3081s
+2026-04-01 03:16:55 | INFO     | Trial  12  ValAUC=0.5397  TrainAUC=0.5485  AUC_Δ=0.0087  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=22  elapsed=3308s
+2026-04-01 03:22:10 | INFO     | Trial  13  ValAUC=0.5453  TrainAUC=0.5651  AUC_Δ=0.0197  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=31  elapsed=3624s
+2026-04-01 03:25:51 | INFO     | Trial  14  ValAUC=0.5376  TrainAUC=0.5438  AUC_Δ=0.0061  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=22  elapsed=3844s
+2026-04-01 03:29:33 | INFO     | Trial  15  ValAUC=0.5323  TrainAUC=0.5476  AUC_Δ=0.0153  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=22  elapsed=4067s
+2026-04-01 03:33:00 | INFO     | Trial  16  ValAUC=0.5488  TrainAUC=0.5574  AUC_Δ=0.0086  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=20  elapsed=4273s
+2026-04-01 03:37:27 | INFO     | Trial  17  ValAUC=0.5578  TrainAUC=0.5689  AUC_Δ=0.0111  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=26  elapsed=4540s
+2026-04-01 03:41:25 | INFO     | Trial  18  ValAUC=0.5440  TrainAUC=0.5467  AUC_Δ=0.0027  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=23  elapsed=4778s
+2026-04-01 03:45:54 | INFO     | Trial  19  ValAUC=0.5420  TrainAUC=0.5633  AUC_Δ=0.0212  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=26  elapsed=5048s
+2026-04-01 03:49:33 | INFO     | Trial  20  ValAUC=0.5357  TrainAUC=0.5380  AUC_Δ=0.0023  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=21  elapsed=5266s
+2026-04-01 03:53:35 | INFO     | Trial  21  ValAUC=0.5499  TrainAUC=0.5704  AUC_Δ=0.0206  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=23  elapsed=5508s
+2026-04-01 03:57:49 | INFO     | Trial  22  ValAUC=0.5517  TrainAUC=0.5686  AUC_Δ=0.0169  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=24  elapsed=5763s
+2026-04-01 04:01:45 | INFO     | Trial  23  ValAUC=0.5523  TrainAUC=0.5604  AUC_Δ=0.0081  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=22  elapsed=5999s
+2026-04-01 04:05:40 | INFO     | Trial  24  ValAUC=0.5299  TrainAUC=0.5528  AUC_Δ=0.0230  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=22  elapsed=6233s
+2026-04-01 04:09:40 | INFO     | Trial  25  ValAUC=0.5540  TrainAUC=0.5689  AUC_Δ=0.0149  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=23  elapsed=6473s
+2026-04-01 04:14:20 | INFO     | Trial  26  ValAUC=0.5580  TrainAUC=0.5486  AUC_Δ=-0.0094  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=27  elapsed=6753s
+2026-04-01 04:21:19 | INFO     | Trial  27  ValAUC=0.5465  TrainAUC=0.5391  AUC_Δ=-0.0074  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=40  elapsed=7173s
+2026-04-01 04:24:33 | INFO     | Trial  28  ValAUC=0.5411  TrainAUC=0.5421  AUC_Δ=0.0010  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=18  elapsed=7367s
+2026-04-01 04:28:29 | INFO     | Trial  29  ValAUC=0.5460  TrainAUC=0.5445  AUC_Δ=-0.0015  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=22  elapsed=7603s
+2026-04-01 04:33:17 | INFO     | Trial  30  ValAUC=0.5514  TrainAUC=0.5432  AUC_Δ=-0.0082  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=27  elapsed=7891s
+2026-04-01 04:36:33 | INFO     | Trial  31  ValAUC=0.5287  TrainAUC=0.5474  AUC_Δ=0.0187  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=18  elapsed=8087s
+2026-04-01 04:40:47 | INFO     | Trial  32  ValAUC=0.5241  TrainAUC=0.5590  AUC_Δ=0.0349  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.002  bs=?  epochs=24  elapsed=8341s
+2026-04-01 04:44:30 | INFO     | Trial  33  ValAUC=0.5525  TrainAUC=0.5603  AUC_Δ=0.0078  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=21  elapsed=8564s
+2026-04-01 04:48:55 | INFO     | Trial  34  ValAUC=0.5521  TrainAUC=0.5633  AUC_Δ=0.0112  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0005  lr=0.001  bs=?  epochs=25  elapsed=8828s
+2026-04-01 04:54:02 | INFO     | Trial  35  ValAUC=0.5575  TrainAUC=0.5401  AUC_Δ=-0.0174  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=29  elapsed=9136s
+2026-04-01 05:00:19 | INFO     | Trial  36  ValAUC=0.5569  TrainAUC=0.5626  AUC_Δ=0.0057  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=36  elapsed=9512s
+2026-04-01 05:05:45 | INFO     | Trial  37  ValAUC=0.5267  TrainAUC=0.5648  AUC_Δ=0.0381  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=31  elapsed=9838s
+2026-04-01 05:09:48 | INFO     | Trial  38  ValAUC=0.5297  TrainAUC=0.5578  AUC_Δ=0.0281  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=23  elapsed=10081s
+2026-04-01 05:14:19 | INFO     | Trial  39  ValAUC=0.5346  TrainAUC=0.5548  AUC_Δ=0.0202  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=26  elapsed=10352s
+2026-04-01 05:21:05 | INFO     | Trial  40  ValAUC=0.5171  TrainAUC=0.5632  AUC_Δ=0.0461  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=39  elapsed=10758s
+2026-04-01 05:23:47 | INFO     | Trial  41  ValAUC=0.5399  TrainAUC=0.5558  AUC_Δ=0.0159  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=15  elapsed=10920s
+2026-04-01 05:28:34 | INFO     | Trial  42  ValAUC=0.5394  TrainAUC=0.5484  AUC_Δ=0.0090  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=27  elapsed=11207s
+2026-04-01 05:34:20 | INFO     | Trial  43  ValAUC=0.5136  TrainAUC=0.5372  AUC_Δ=0.0236  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=32  elapsed=11553s
+2026-04-01 05:39:09 | INFO     | Trial  44  ValAUC=0.5350  TrainAUC=0.5517  AUC_Δ=0.0167  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=27  elapsed=11842s
+2026-04-01 05:42:22 | INFO     | Trial  45  ValAUC=0.5448  TrainAUC=0.5535  AUC_Δ=0.0087  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=18  elapsed=12036s
+2026-04-01 05:47:55 | INFO     | Trial  46  ValAUC=0.5309  TrainAUC=0.5587  AUC_Δ=0.0278  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=31  elapsed=12368s
+2026-04-01 05:50:51 | INFO     | Trial  47  ValAUC=0.5413  TrainAUC=0.5561  AUC_Δ=0.0149  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.002  bs=?  epochs=16  elapsed=12544s
+2026-04-01 05:55:13 | INFO     | Trial  48  ValAUC=0.5579  TrainAUC=0.5433  AUC_Δ=-0.0145  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.0002  lr=0.002  bs=?  epochs=24  elapsed=12807s
+2026-04-01 05:59:05 | INFO     | Trial  49  ValAUC=0.5438  TrainAUC=0.5516  AUC_Δ=0.0078  ACC_Δ=nan  VarB_Cov=nan  VarB_CWR=nan  arch=[512→256]  drop=0.25  recdrop=0.25  l2=0.001  lr=0.001  bs=?  epochs=21  elapsed=13038s
+2026-04-01 05:59:05 | INFO     | study.optimize() completed normally.
+2026-04-01 05:59:05 | INFO     | Wall-clock time: 13038.1 s  (217.3 min).
+2026-04-01 05:59:05 | INFO     | Study 'lstm_weighted' ended — 50 total trials  (50 COMPLETE, 0 FAIL/PRUNED).
+2026-04-01 05:59:05 | INFO     | Full results exported (sorted Val AUC ↓) → tuning_results_lstm_weighted.csv  (50 rows)
+2026-04-01 05:59:05 | INFO     | Full results also exported → tuning_results_lstm_weighted.xlsx  (50 rows)
+2026-04-01 05:59:05 | INFO     | Best params saved → best_params_lstm_weighted.json
+2026-04-01 05:59:05 | INFO     | Top-5 params saved → top_5_params_lstm_weighted.json  (Val AUC 0.5583 → 0.5575)
+2026-04-01 05:59:05 | INFO     | === COMPLETED SESSION: LSTM_WEIGHTED ===
+2026-04-01 05:59:05 | INFO     | 03_hyperparameter_tuning_v2.py  —  DUAL-OPTUNA COMPLETE

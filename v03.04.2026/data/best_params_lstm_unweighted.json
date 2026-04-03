@@ -1,0 +1,19 @@
+{
+  "rank": 1,
+  "trial_number": 47,
+  "val_auc": 0.5791,
+  "units_1": 512,
+  "units_2": 256,
+  "dropout": 0.25,
+  "recurrent_dropout": 0.25,
+  "l2_factor": 0.0002,
+  "lr": 0.001,
+  "batch_size": 64,
+  "train_a_auc": 0.5904887762148459,
+  "val_a_auc": 0.5790756836972653,
+  "auc_diff": 0.011413092517580603,
+  "acc_diff": null,
+  "val_b_coverage": null,
+  "val_b_cond_win_rate": null,
+  "actual_epochs": 30
+}
