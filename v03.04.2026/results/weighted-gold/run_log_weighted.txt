@@ -1,0 +1,71 @@
+2026-04-03 20:08:05 | INFO     | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-04-03 20:08:05 | INFO     |   EXPERIMENT: WEIGHTED  |  use_weights=True
+2026-04-03 20:08:05 | INFO     |   Output dir: results\run_final_0.0002-gold\weighted
+2026-04-03 20:08:05 | INFO     | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-04-03 20:08:05 | INFO     | use_weights=True — sample weights applied.
+2026-04-03 20:08:05 | INFO     | Train weights: n=3288  mean=1.0000  min=0.0000  max=19.1974
+2026-04-03 20:08:05 | INFO     | [STEP 3] Building sliding-window tf.data.Datasets ...
+2026-04-03 20:08:05 | INFO     | [STEP 4] Building and training LSTM model ...
+2026-04-03 20:10:13 | INFO     | Training complete. Best val_loss = 0.70156 at epoch 16 / 23.
+2026-04-03 20:10:13 | INFO     | Model saved → results\run_final_0.0002-gold\weighted\model.keras
+2026-04-03 20:10:13 | INFO     | [STEP 5] Generating predictions ...
+2026-04-03 20:10:16 | INFO     | [STEP 6] Evaluating all variants ...
+2026-04-03 20:10:16 | INFO     | [STEP 7] Generating diagnostic visualizations ...
+2026-04-03 20:10:16 | INFO     | Training history saved → results\run_final_0.0002-gold\weighted\training_history_v2.png
+2026-04-03 20:10:16 | INFO     | ROC curve saved → results\run_final_0.0002-gold\weighted\roc_curve_v2_train.png
+2026-04-03 20:10:16 | INFO     | Confusion matrix saved → results\run_final_0.0002-gold\weighted\confusion_matrix_v2_train.png
+2026-04-03 20:10:16 | INFO     | ROC curve saved → results\run_final_0.0002-gold\weighted\roc_curve_v2_val.png
+2026-04-03 20:10:17 | INFO     | Confusion matrix saved → results\run_final_0.0002-gold\weighted\confusion_matrix_v2_val.png
+2026-04-03 20:10:17 | INFO     | ROC curve saved → results\run_final_0.0002-gold\weighted\roc_curve_v2_test.png
+2026-04-03 20:10:17 | INFO     | Confusion matrix saved → results\run_final_0.0002-gold\weighted\confusion_matrix_v2_test.png
+2026-04-03 20:10:17 | INFO     | [STEP 8] Generating advanced quantitative finance plots ...
+2026-04-03 20:10:17 | INFO     | Probability distribution saved → results\run_final_0.0002-gold\weighted\prob_distribution_v2_train.png
+2026-04-03 20:10:17 | INFO     | Probability distribution saved → results\run_final_0.0002-gold\weighted\prob_distribution_v2_val.png
+2026-04-03 20:10:17 | WARNING  | [Train] 'spy_log_return' not in df — SPY B&H line will be omitted.
+2026-04-03 20:10:17 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_train_VariantA.png
+2026-04-03 20:10:18 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_train_VariantB.png
+2026-04-03 20:10:18 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_train_VariantC.png
+2026-04-03 20:10:18 | WARNING  | [Val] 'spy_log_return' not in df — SPY B&H line will be omitted.
+2026-04-03 20:10:18 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_val_VariantA.png
+2026-04-03 20:10:19 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_val_VariantB.png
+2026-04-03 20:10:19 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_val_VariantC.png
+2026-04-03 20:10:19 | INFO     | Trading signals chart saved → results\run_final_0.0002-gold\weighted\trading_signals_v2_train_variantA.png
+2026-04-03 20:10:19 | INFO     | Trading signals chart saved → results\run_final_0.0002-gold\weighted\trading_signals_v2_train_variantB.png
+2026-04-03 20:10:20 | INFO     | Trading signals chart saved → results\run_final_0.0002-gold\weighted\trading_signals_v2_val_variantA.png
+2026-04-03 20:10:20 | INFO     | Trading signals chart saved → results\run_final_0.0002-gold\weighted\trading_signals_v2_val_variantB.png
+2026-04-03 20:10:20 | INFO     | Probability distribution saved → results\run_final_0.0002-gold\weighted\prob_distribution_v2_test.png
+2026-04-03 20:10:20 | WARNING  | [Test] 'spy_log_return' not in df — SPY B&H line will be omitted.
+2026-04-03 20:10:20 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_test_VariantA.png
+2026-04-03 20:10:20 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_test_VariantB.png
+2026-04-03 20:10:20 | INFO     | Equity curve saved → results\run_final_0.0002-gold\weighted\equity_curve_v2_test_VariantC.png
+2026-04-03 20:10:21 | INFO     | Trading signals chart saved → results\run_final_0.0002-gold\weighted\trading_signals_v2_test_variantA.png
+2026-04-03 20:10:21 | INFO     | Trading signals chart saved → results\run_final_0.0002-gold\weighted\trading_signals_v2_test_variantB.png
+2026-04-03 20:10:21 | INFO     |   u=0.50 / l=0.50  →  Coverage=100.0%  WinRate= 54.2%
+2026-04-03 20:10:21 | INFO     |   u=0.52 / l=0.48  →  Coverage= 46.3%  WinRate= 55.9%
+2026-04-03 20:10:21 | INFO     |   u=0.54 / l=0.46  →  Coverage= 17.2%  WinRate= 55.6%
+2026-04-03 20:10:21 | INFO     |   u=0.56 / l=0.44  →  Coverage=  6.3%  WinRate= 56.5%
+2026-04-03 20:10:21 | INFO     |   u=0.58 / l=0.42  →  Coverage=  2.7%  WinRate= 60.0%
+2026-04-03 20:10:21 | INFO     |   u=0.60 / l=0.40  →  Coverage=  1.1%  WinRate=100.0%
+2026-04-03 20:10:21 | INFO     |   u=0.62 / l=0.38  →  Coverage=  0.8%  WinRate=100.0%
+2026-04-03 20:10:21 | INFO     |   u=0.64 / l=0.36  →  Coverage=  0.3%  WinRate=100.0%
+2026-04-03 20:10:21 | INFO     |   u=0.66 / l=0.34  →  Coverage=  0.3%  WinRate=100.0%
+2026-04-03 20:10:21 | INFO     |   u=0.68 / l=0.32  →  Coverage=  0.3%  WinRate=100.0%
+2026-04-03 20:10:21 | INFO     |   u=0.70 / l=0.30  →  Coverage=  0.0%  WinRate=  nan%
+2026-04-03 20:10:21 | INFO     | Threshold sensitivity saved → results\run_final_0.0002-gold\weighted\threshold_sensitivity_v2.png
+2026-04-03 20:10:21 | INFO     | [STEP 9] Computing permutation feature importance (Val) ...
+2026-04-03 20:10:21 | INFO     | Baseline val AUC = 0.5617
+2026-04-03 20:10:22 | INFO     |   Feature btc_close               AUC drop = +0.0213 (mean over 3 repeats)
+2026-04-03 20:10:23 | INFO     |   Feature spy_close               AUC drop = +0.0019 (mean over 3 repeats)
+2026-04-03 20:10:23 | INFO     |   Feature dxy_close               AUC drop = +0.0047 (mean over 3 repeats)
+2026-04-03 20:10:24 | INFO     |   Feature vix_close               AUC drop = +0.0048 (mean over 3 repeats)
+2026-04-03 20:10:25 | INFO     |   Feature is_weekend              AUC drop = +0.0050 (mean over 3 repeats)
+2026-04-03 20:10:26 | INFO     |   Feature btc_log_return          AUC drop = +0.0266 (mean over 3 repeats)
+2026-04-03 20:10:26 | INFO     |   Feature btc_volume_ratio        AUC drop = +0.0013 (mean over 3 repeats)
+2026-04-03 20:10:27 | INFO     |   Feature btc_rsi_14              AUC drop = -0.0077 (mean over 3 repeats)
+2026-04-03 20:10:28 | INFO     |   Feature btc_roll_vol_21         AUC drop = +0.0021 (mean over 3 repeats)
+2026-04-03 20:10:28 | INFO     | Feature importance saved → results\run_final_0.0002-gold\weighted\feature_importance_v2_val.png
+2026-04-03 20:10:28 | INFO     | Test predictions exported → results\run_final_0.0002-gold\weighted\test_predictions.csv  (364 rows)
+2026-04-03 20:10:28 | INFO     | Supervisor Excel export saved → results\run_final_0.0002-gold\weighted\supervisor_export_train.xlsx
+2026-04-03 20:10:28 | INFO     | Supervisor Excel export saved → results\run_final_0.0002-gold\weighted\supervisor_export_val.xlsx
+2026-04-03 20:10:28 | INFO     | Supervisor Excel export saved → results\run_final_0.0002-gold\weighted\supervisor_export_test.xlsx
+2026-04-03 20:10:28 | INFO     | Experiment 'weighted' complete. All outputs → results\run_final_0.0002-gold\weighted
