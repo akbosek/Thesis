@@ -157,7 +157,7 @@ WEIGHTED_DB_URI   = "sqlite:///optuna_weighted.db"
 UNWEIGHTED_STUDY  = "btc_lstm_unweighted"
 WEIGHTED_STUDY    = "btc_lstm_weighted"
 
-OUT_ROOT = Path("May the God save me this time results") / "walk_forward"
+OUT_ROOT = Path("results") / "walk_forward"
 
 SEED          = 42
 TRADING_DAYS  = 365              # BTC trades 24/7
